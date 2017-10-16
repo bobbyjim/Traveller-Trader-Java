@@ -5,7 +5,7 @@ import worlds.MapFactory;
 
 import java.util.ArrayList;
 
-public class Client
+public class TraderClient
 {
     private ArrayList scan( Playable player )
     {
@@ -20,7 +20,7 @@ public class Client
             playerType = args[0];
 
         Playable player = PlayerFactory.createPlayer( playerType );
-        Client client = new Client();
+        TraderClient client = new TraderClient();
 
         while(true)
         {
