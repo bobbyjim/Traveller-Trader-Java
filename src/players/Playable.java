@@ -6,6 +6,7 @@ public interface Playable
 {
     String getSectorAbbreviation();
     String getHex();
+    void setHex( String hex );
     int getJumpDistance();
-    void showWorlds(ArrayList worlds);
+    void jump(ArrayList worlds);
 }

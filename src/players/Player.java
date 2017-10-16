@@ -15,10 +15,11 @@ public class Player implements Playable
     public String getHex() {
         return hex;
     }
+    public void setHex( String hex ) { this.hex = hex; }
 
     public int getJumpDistance() {
         return jumpno;
     }
 
-    public void showWorlds(ArrayList worlds) {}
+    public void jump(ArrayList worlds) {}
 }
