@@ -1,12 +1,13 @@
 package players;
 
+import worlds.World;
+
 import java.util.ArrayList;
 
 public interface Playable
 {
-    String getSectorAbbreviation();
-    String getHex();
-    void setHex( String hex );
+    World getCurrentWorld();
     int getJumpDistance();
-    void jump(ArrayList worlds);
+    void visitWorld();
+    void jump(World[] worlds);
 }

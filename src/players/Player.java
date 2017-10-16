@@ -1,25 +1,24 @@
 package players;
 
+import worlds.World;
+
 import java.util.ArrayList;
 
 public class Player implements Playable
 {
-    private String sector = "spin";
-    private String hex = "1910";
+    public World currentWorld;
     private int jumpno = 2;
 
-    public String getSectorAbbreviation() {
-        return sector;
+    public Player()
+    {
+        currentWorld = new World();
+        currentWorld.name = "Regina";
+        currentWorld.sectorAbbreviation = "spin";
+        currentWorld.hex = "1910";
     }
 
-    public String getHex() {
-        return hex;
-    }
-    public void setHex( String hex ) { this.hex = hex; }
-
-    public int getJumpDistance() {
-        return jumpno;
-    }
-
-    public void jump(ArrayList worlds) {}
+    public World getCurrentWorld() { return currentWorld; }
+    public int getJumpDistance() { return jumpno; }
+    public void visitWorld() {}
+    public void jump(World[] worlds) {}
 }

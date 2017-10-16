@@ -2,15 +2,16 @@ import players.Playable;
 import players.PlayerFactory;
 import worlds.MapAccessible;
 import worlds.MapFactory;
+import worlds.World;
 
 import java.util.ArrayList;
 
 public class TraderClient
 {
-    private ArrayList scan( Playable player )
+    private World[] scan( Playable player )
     {
         MapAccessible api = MapFactory.getMapEngine("worlds.TravellerMap");
-        return api.getJumpMap(player.getSectorAbbreviation(), player.getHex(), player.getJumpDistance());
+        return api.getJumpMap(player.getCurrentWorld().sectorAbbreviation, player.getCurrentWorld().hex, player.getJumpDistance());
     }
 
     public static void main( String[] args ) throws Exception
@@ -24,7 +25,8 @@ public class TraderClient
 
         while(true)
         {
-            ArrayList worlds = client.scan(player);
+            player.visitWorld();
+            World[] worlds = client.scan(player);
             player.jump(worlds);
         }
     }

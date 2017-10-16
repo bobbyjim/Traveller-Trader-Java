@@ -1,12 +1,21 @@
 package players;
 
+import worlds.World;
+
 import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CLI extends Player implements Playable
 {
-    public void jump(ArrayList worlds)
+    public void visitWorld()
+    {
+        System.out.println( "Welcome to " + currentWorld.name + " (" + currentWorld.hex + "/" + currentWorld.sectorAbbreviation + ")" );
+        System.out.println( "Your ship is equipped with Jump-" + this.getJumpDistance() );
+        System.out.println();
+    }
+
+    public void jump(World[] worlds)
     {
         Console console = System.console();
 
@@ -16,23 +25,11 @@ public class CLI extends Player implements Playable
             return;
         }
 
-        int i = 1;
-        String[] hexArray = new String[ worlds.size()+1 ];
-
-        for (Object o1 : worlds)
+        System.out.println( "Destinations in range:" );
+        for (int i=0; i<worlds.length; i++)
         {
-            HashMap h1 = (HashMap) o1;
-            String hex = h1.get( "Hex" ).toString();
-            hexArray[i] = hex;
             String index = pad(i + "", 2);
-            String sec = h1.get("SectorAbbreviation").toString();
-            String bases = pad(h1.get("Bases").toString(), 2);
-            String name = pad(h1.get("Name").toString(), 15);
-            String uwp = h1.get("UWP").toString();
-            String rem = h1.get("Remarks").toString();
-            //String dist  = h1.get( "Distance" ).toString();
-            System.out.println(index + ": " + sec + " " + hex + "  " + name + " " + uwp + " " + bases + " " + rem);
-            i++;
+            System.out.println(index + ": " + worlds[i].toString());
         }
 
         int selection = 0;
@@ -43,7 +40,7 @@ public class CLI extends Player implements Playable
             {
                 String input = console.readLine();
                 selection = Integer.parseInt( input );
-                if ( selection < 0 || selection >= hexArray.length )
+                if ( selection < 0 || selection >= worlds.length )
                     selection = 0;
             }
             catch( Exception e )
@@ -53,8 +50,7 @@ public class CLI extends Player implements Playable
             }
         }
 
-        String selectedHex = hexArray[selection];
-        this.setHex( selectedHex );
+        this.currentWorld = worlds[selection];
     }
 
     private String pad( String in, int length )

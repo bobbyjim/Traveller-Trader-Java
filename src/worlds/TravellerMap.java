@@ -15,11 +15,39 @@ public class TravellerMap implements MapAccessible
     public HashMap<String,Object> getWorld( String sector, String hex )
     {
         String json = get("https://travellermap.com/data/" + sector + "/" + hex);
-        HashMap<String,Object> out;
+        return decode( json );
+    }
 
+    public World[] getJumpMap( String sector, String hex, int jumpnum )
+    {
+        String json = get( "https://travellermap.com/data/" + sector + "/" + hex + "/jump/" + jumpnum );
+        HashMap<String,Object> out = decode( json );
+        World[] worlds;
+
+        ArrayList array = (ArrayList) out.get("Worlds");
+        worlds = new World[ array.size() ];
+        int i = 0;
+        for (Object o1 : array)
+        {
+            World world = new World();
+            worlds[i] = world;
+            world.populate( (HashMap) o1 );
+            i++;
+        }
+
+        return worlds;
+    }
+
+    /*
+    System.out.println( "Destinations in range:" );
+    */
+
+    private HashMap<String,Object> decode( String json )
+    {
+        HashMap<String,Object> out;
         try
         {
-            out = (HashMap<String,Object>) parser.parse(json);
+            return (HashMap<String, Object>) parser.parse(json);
         }
         catch( ParseException pe )
         {
@@ -27,24 +55,6 @@ public class TravellerMap implements MapAccessible
             out.put( "exception", pe.getMessage() );
         }
         return out;
-    }
-
-    public ArrayList getJumpMap( String sector, String hex, int jumpnum )
-    {
-        String json = get( "https://travellermap.com/data/" + sector + "/" + hex + "/jump/" + jumpnum );
-        ArrayList array = null;
-
-        try
-        {
-            HashMap<String,Object> o = (HashMap<String,Object>) parser.parse(json);
-            array = (ArrayList) o.get("Worlds");
-        }
-        catch( ParseException pe )
-        {
-            // what?  print stack trace??
-        }
-
-        return array;
     }
 
     private String get( String urlString )
