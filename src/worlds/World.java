@@ -1,5 +1,6 @@
 package worlds;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  *
  * Created by eagro02 on 10/16/2017.
  */
-public class World
+public class World implements Serializable
 {
     public String name;
     public String hex;

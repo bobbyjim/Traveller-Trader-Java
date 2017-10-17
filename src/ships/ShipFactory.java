@@ -1,9 +1,5 @@
 package ships;
 
-import com.sun.org.apache.bcel.internal.generic.INEG;
-import com.sun.org.apache.xerces.internal.impl.dv.xs.BooleanDV;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 /**
  * Created by eagro02 on 10/17/2017.
  */
@@ -62,8 +58,6 @@ public class ShipFactory
      * Jump rating --------------|
      * Maneuver rating -----------
      *
-     * @param extendedQSP
-     * @return
      */
     public static Ship createShipFromQSP( String extendedQSP )
     {
