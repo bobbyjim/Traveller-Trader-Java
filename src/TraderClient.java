@@ -1,12 +1,13 @@
+import maps.MapAccessible;
+import maps.MapFactory;
 import players.*;
 import worlds.*;
-import ships.*;
 
 public class TraderClient
 {
     private World[] scan( Playable player )
     {
-        MapAccessible api = MapFactory.getMapEngine("worlds.TravellerMap");
+        MapAccessible api = MapFactory.getMapEngine("maps.TravellerMap");
         return api.getJumpMap(player.getWorld().sectorAbbreviation, player.getWorld().hex, player.getShip().getJumpRange());
     }
 

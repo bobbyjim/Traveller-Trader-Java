@@ -1,4 +1,4 @@
-package worlds;
+package maps;
 
 public class MapFactory
 {
@@ -6,7 +6,7 @@ public class MapFactory
     {
         switch( name )
         {
-            case "worlds.TravellerMap": return new TravellerMap();
+            case "maps.TravellerMap": return new TravellerMap();
         }
         return new TravellerMap();
     }

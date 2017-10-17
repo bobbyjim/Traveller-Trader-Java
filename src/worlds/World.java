@@ -1,9 +1,6 @@
 package worlds;
 
-import com.sun.org.apache.xalan.internal.lib.ExsltStrings;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * A plain old Data Object.
@@ -18,29 +15,17 @@ public class World
     public String uwp;
     public String bases;
     public String remarks;
-    public String worldx;
-    public String worldy;
+    public int worldX;
+    public int worldY;
 
     private final String[] tcList = { "Ag", "As", "Ba", "De", "Fl", "Hi", "Ic", "In", "Lo", "Na", "Ni", "Po", "Ri", "Va" };
 
-    public void populate( HashMap hash )
-    {
-        hex     = hash.get( "Hex" ).toString();
-        sectorAbbreviation = hash.get("SectorAbbreviation").toString();
-        bases   = hash.get("Bases").toString();
-        name    = hash.get("Name").toString();
-        uwp     = hash.get("UWP").toString();
-        remarks = hash.get("Remarks").toString();
-        worldx  = hash.get( "WorldX" ).toString();
-        worldy  = hash.get( "WorldY" ).toString();
-    }
-
     public int distanceTo( World otherWorld )
     {
-        int row1 = Integer.parseInt( worldy );
-        int row2 = Integer.parseInt( otherWorld.worldy );
-        int col1 = Integer.parseInt( worldx );
-        int col2 = Integer.parseInt( otherWorld.worldx );
+        int row1 = worldY;
+        int row2 = otherWorld.worldY;
+        int col1 = worldX;
+        int col2 = otherWorld.worldX;
 
         int a1 = row1 + ( col1 / 2 );
         int a2 = row2 + ( col2 / 2 );
@@ -68,7 +53,8 @@ public class World
         {
             if ( remarks.contains( tc ) ) list.add( tc );
         }
-        return list.toArray();
+        String[] out = (String[]) list.toArray();
+        return out;
     }
 
     public int popDigit()

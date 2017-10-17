@@ -1,4 +1,6 @@
-package worlds;
+package maps;
+
+import worlds.World;
 
 import java.util.HashMap;
 

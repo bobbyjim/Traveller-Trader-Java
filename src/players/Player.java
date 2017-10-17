@@ -1,8 +1,7 @@
 package players;
 
-import ships.Interstellar;
-import ships.Ship;
-import worlds.World;
+import ships.*;
+import worlds.*;
 
 import java.util.HashMap;
 
@@ -10,17 +9,12 @@ public class Player implements Playable
 {
     HashMap<String,Integer> skills = new HashMap<>();
     public World world;
-    public Interstellar ship = new Ship();
+    public Interstellar ship = ShipFactory.createShip( "Far Trader" );
     public double mcr = 1.0;
 
     public Player()
     {
-        world = new World();
-        world.name = "Regina";
-        world.sectorAbbreviation = "spin";
-        world.hex = "1910";
-        world.remarks = "Ri Pa Ph An Cp";
-        world.uwp = "A788899-C";
+        world = WorldBuilder.BuildRegina();
 
         skills.put( "admin", 1 );
         skills.put( "liaison", 1 );
