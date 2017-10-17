@@ -20,18 +20,6 @@ public class CLI extends Player implements Playable
         ship.getFreight().unload( world );
         System.out.println( "done." );
 
-        System.out.println( "Loading freight..." );
-        ship.getFreight().load( this );
-        System.out.println( "   " + ship.getFreight().getCount() + " tons." );
-
-        System.out.println( "Loading passengers..." );
-        ship.getLowPassengers().load( this );
-        System.out.println( "   " + ship.getLowPassengers().getCount() + " low" );
-        ship.getMidPassengers().load( this );
-        System.out.println( "   " + ship.getMidPassengers().getCount() + " mid" );
-        ship.getHighPassengers().load( this );
-        System.out.println( "   " + ship.getHighPassengers().getCount() + " high" );
-
         System.out.println( "\nYour ship is equipped with Jump-" + ship.getJumpRange() + "\n" );
     }
 
@@ -71,6 +59,18 @@ public class CLI extends Player implements Playable
         }
 
         this.world = worlds[selection];
+
+        System.out.println( "Loading freight..." );
+        ship.getFreight().load( this );
+        System.out.println( "   " + ship.getFreight().getCount() + " tons." );
+
+        System.out.println( "Loading passengers..." );
+        ship.getLowPassengers().load( this );
+        System.out.println( "   " + ship.getLowPassengers().getCount() + " low" );
+        ship.getMidPassengers().load( this );
+        System.out.println( "   " + ship.getMidPassengers().getCount() + " mid" );
+        ship.getHighPassengers().load( this );
+        System.out.println( "   " + ship.getHighPassengers().getCount() + " high" );
     }
 
     private String pad( String in, int length )

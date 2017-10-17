@@ -18,22 +18,22 @@ public class Ship implements Interstellar
     public Shippable lowPassage = new LowPassengers();
     public Shippable cargo = new Cargo();
 
+    public String getMissionCode()   { return "A"; }
+    public String getConfiguration() { return "U"; }
     public int getJumpRange() {
         return jump;
     }
-
+    public int getManeuverRating() { return maneuver; }
+    public int getFuel() { return fuel; }
     public int getPassageDemand() {
         return 0;
     }
-
     public int getCrewComfort() {
         return 0;
     }
-
     public boolean hasVault() {
         return false;
     }
-
     public int freeCargoSpace() {
         return 0;
     }
@@ -41,19 +41,15 @@ public class Ship implements Interstellar
     public Shippable getFreight() {
         return freight;
     }
-
     public Shippable getCargo() {
         return cargo;
     }
-
     public Shippable getHighPassengers() {
         return highPassage;
     }
-
     public Shippable getMidPassengers() {
         return midPassage;
     }
-
     public Shippable getLowPassengers() {
         return lowPassage;
     }
