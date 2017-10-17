@@ -3,16 +3,36 @@ package players;
 import worlds.World;
 
 import java.io.Console;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CLI extends Player implements Playable
 {
     public void visitWorld()
     {
-        System.out.println( "Welcome to " + currentWorld.name + " (" + currentWorld.hex + "/" + currentWorld.sectorAbbreviation + ")" );
-        System.out.println( "Your ship is equipped with Jump-" + this.getJumpDistance() );
-        System.out.println();
+        System.out.println( "Welcome to " + world.name + " (" + world.hex + "/" + world.sectorAbbreviation + ")" );
+
+        System.out.print( "Unloading passengers..." );
+        ship.getHighPassengers().unload( world );
+        ship.getMidPassengers().unload( world );
+        ship.getLowPassengers().unload( world );
+        System.out.println( "done.");
+
+        System.out.print( "Unloading freight..." );
+        ship.getFreight().unload( world );
+        System.out.println( "done." );
+
+        System.out.println( "Loading freight..." );
+        ship.getFreight().load( this );
+        System.out.println( "   " + ship.getFreight().getCount() + " tons." );
+
+        System.out.println( "Loading passengers..." );
+        ship.getLowPassengers().load( this );
+        System.out.println( "   " + ship.getLowPassengers().getCount() + " low" );
+        ship.getMidPassengers().load( this );
+        System.out.println( "   " + ship.getMidPassengers().getCount() + " mid" );
+        ship.getHighPassengers().load( this );
+        System.out.println( "   " + ship.getHighPassengers().getCount() + " high" );
+
+        System.out.println( "\nYour ship is equipped with Jump-" + ship.getJumpRange() + "\n" );
     }
 
     public void jump(World[] worlds)
@@ -50,7 +70,7 @@ public class CLI extends Player implements Playable
             }
         }
 
-        this.currentWorld = worlds[selection];
+        this.world = worlds[selection];
     }
 
     private String pad( String in, int length )

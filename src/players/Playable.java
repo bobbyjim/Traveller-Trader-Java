@@ -1,13 +1,13 @@
 package players;
 
+import ships.Interstellar;
 import worlds.World;
-
-import java.util.ArrayList;
 
 public interface Playable
 {
-    World getCurrentWorld();
-    int getJumpDistance();
+    World getWorld();
+    Interstellar getShip();
     void visitWorld();
     void jump(World[] worlds);
+    int getSkillLevel( String skill );
 }

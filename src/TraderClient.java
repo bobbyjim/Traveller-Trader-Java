@@ -1,17 +1,13 @@
-import players.Playable;
-import players.PlayerFactory;
-import worlds.MapAccessible;
-import worlds.MapFactory;
-import worlds.World;
-
-import java.util.ArrayList;
+import players.*;
+import worlds.*;
+import ships.*;
 
 public class TraderClient
 {
     private World[] scan( Playable player )
     {
         MapAccessible api = MapFactory.getMapEngine("worlds.TravellerMap");
-        return api.getJumpMap(player.getCurrentWorld().sectorAbbreviation, player.getCurrentWorld().hex, player.getJumpDistance());
+        return api.getJumpMap(player.getWorld().sectorAbbreviation, player.getWorld().hex, player.getShip().getJumpRange());
     }
 
     public static void main( String[] args ) throws Exception
