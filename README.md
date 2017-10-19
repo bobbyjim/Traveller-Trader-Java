@@ -18,7 +18,7 @@ Run the "TraderClient" class from the command line.  You'll start at Regina with
 * Persist player data (JSON).
 * Add RESTful API:
   * Player ID is in JSON body of most things, except GETs.
-  * GET /v1/<playerID>             ; player status
+  * GET /v1/player/<playerID>      ; player status
   * PUT /v1/ship/<hex>             ; jump to hex
   * CREATE /v1/passengers/high     ; load ship with high passengers (etc)
   * PUT /v1/passengers             ; get passenger counts

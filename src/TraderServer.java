@@ -45,8 +45,14 @@ public class TraderServer
 
     private void handleInput( BufferedReader reader ) throws IOException
     {
-        String[] words = reader.readLine().split( "/" );
+        String[] words = reader.readLine().split( " " );
         String cmd = words[0];
+        String path = words[1];
+
+        String[] chunks = path.split( "/" );
+        String version = chunks[0];
+        // version = VersionFactory.getVersion( chunks[0] );
+        // version.handle( cmd, chunks ); or something like that.
     }
 
     private void handleOutput( OutputStreamWriter writer ) throws IOException
