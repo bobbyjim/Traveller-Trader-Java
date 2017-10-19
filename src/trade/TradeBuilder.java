@@ -21,6 +21,15 @@ public class TradeBuilder
         trade.marketTL = market.TL();
         Object[] tradeCodes = market.tradeCodes();
 
+        //
+        // TODO
+        // The CORRECT way to do this is to switch on the CARGO trade codes.
+        //
+        // If a CARGO trade code applies, then there is a SUBSET of these
+        // Sale Trade Codes which apply if they exist in the market world.
+        //
+        // See where this code went wrong?
+        //
         for( Object tc : tradeCodes )
         {
             if ( "Ag".equals( tc ) ) add( cargo, TradeCode.Ag );
