@@ -16,21 +16,21 @@ Run the "TraderClient" class from the command line.  You'll start at Regina with
 
 # TO DO
 * Persist player data (JSON).
-* Add RESTful API for Player actions:
+* RESTful API for Player actions:
   * CREATE /v1/player/<playerID>   ; create a new player
   * GET /v1/player/<playerID>      ; player status
 * RESTful API for World actions:
   * GET /v1/map/spin/1910          ; data about e.g. Regina
   * GET /v1/map/spin/1910/jump/6   ; jump-6 map around e.g. Regina
-* Add RESTful API for Ship actions:
+* RESTful API for Ship actions:
   * Player ID is in JSON body.
   * PUT /v1/ship/<hex>             ; jump to hex
-* Add RESTful API for passenger actions:
+* RESTful API for passenger actions:
   * Player ID is in JSON body.
   * CREATE /v1/passengers/high     ; load ship with high passengers (etc)
   * PUT /v1/passengers             ; get passenger counts
   * DELETE /v1/passengers          ; unload all passengers
-* Add RESTful API for cargo actions:
+* RESTful API for cargo actions:
   * Player ID is in JSON body.
   * CREATE /v1/cargo/<tons>        ; buy speculative cargo
   * PUT /v1/cargo/<tons>           ; get speculative cargo buy/sell price?
