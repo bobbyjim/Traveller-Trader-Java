@@ -1,3 +1,6 @@
+import api.API;
+import api.ApiCommand;
+import api.ApiVersionFactory;
 import jdk.internal.util.xml.impl.Input;
 
 import java.io.BufferedReader;
@@ -32,8 +35,8 @@ public class TraderServer
         {
             if ( (client = serverSocket.accept()) != null )
             {
-                handleInput( new BufferedReader( new InputStreamReader( client.getInputStream())));
-                handleOutput( new OutputStreamWriter( client.getOutputStream() ) );
+                String result = handleInput( new BufferedReader( new InputStreamReader( client.getInputStream())));
+                handleOutput( new OutputStreamWriter( client.getOutputStream() ), result );
                 client.close();
             }
         }
@@ -43,19 +46,22 @@ public class TraderServer
         }
     }
 
-    private void handleInput( BufferedReader reader ) throws IOException
+    private String handleInput( BufferedReader reader ) throws IOException
     {
         String[] words = reader.readLine().split( " " );
-        String cmd = words[0];
+        String verb = words[0];
         String path = words[1];
 
         String[] chunks = path.split( "/" );
         String version = chunks[0];
-        // version = VersionFactory.getVersion( chunks[0] );
-        // version.handle( cmd, chunks ); or something like that.
+        String stemNoun = chunks[1];
+
+        API api = ApiVersionFactory.getApiVersion( version );
+        ApiCommand cmd = api.getCommand( verb, stemNoun );
+        return cmd.handle( chunks );
     }
 
-    private void handleOutput( OutputStreamWriter writer ) throws IOException
+    private void handleOutput( OutputStreamWriter writer, String result ) throws IOException
     {
         writer.write(
                 "HTTP/1.0 200\n"
