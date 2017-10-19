@@ -24,7 +24,8 @@ Run the "TraderClient" class from the command line.  You'll start at Regina with
   * GET /v1/map/spin/1910/jump/6   ; jump-6 map around e.g. Regina
 * RESTful API for Ship actions:
   * Player ID is in JSON body.
-  * PUT /v1/ship/<hex>             ; jump to hex
+  * PUT /v1/ship/<sector>/<hex>    ; jump to hex
+  * PUT /v1/ship/fuel/refined/<tons>        ; buy e.g. refined fuel
 * RESTful API for passenger actions:
   * Player ID is in JSON body.
   * CREATE /v1/passengers/high     ; load ship with high passengers (etc)
