@@ -42,26 +42,15 @@ public class CargoBuilder
 
     public Cargo build()
     {
-        int value = 3000
-/*                + cargo.Ag.getBuyModifier()
-                + cargo.As.getBuyModifier()
-                + cargo.Ba.getBuyModifier()
-                + cargo.De.getBuyModifier()
-                + cargo.Fl.getBuyModifier()
-                + cargo.Hi.getBuyModifier()
-                + cargo.In.getBuyModifier()
-                + cargo.Lo.getBuyModifier()
-                + cargo.Na.getBuyModifier()
-                + cargo.Ni.getBuyModifier()
-                + cargo.Po.getBuyModifier()
-                + cargo.Ri.getBuyModifier()
-                + cargo.Va.getBuyModifier()*/
-                + cargo.sourceTL * 100;
+        int value = 3000;
 
         for( TradeCode tc : cargo.getTradeCodes() )
         {
             value += tc.buyMod;
         }
+
+        value += cargo.sourceTL * 100;
+
         cargo.buyPrice = value;
         return cargo;
     }
@@ -80,7 +69,7 @@ public class CargoBuilder
     }
     private void isDe()
     {
-        cargo.addTradeCode(TradeCode.De);
+        cargo.addTradeCode( TradeCode.De );
     }
     private void isFl()
     {

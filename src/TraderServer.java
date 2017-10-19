@@ -1,5 +1,6 @@
 import jdk.internal.util.xml.impl.Input;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -31,7 +32,7 @@ public class TraderServer
         {
             if ( (client = serverSocket.accept()) != null )
             {
-                handleInput( new InputStreamReader( client.getInputStream() ) );
+                handleInput( new BufferedReader( new InputStreamReader( client.getInputStream())));
                 handleOutput( new OutputStreamWriter( client.getOutputStream() ) );
                 client.close();
             }
@@ -42,9 +43,10 @@ public class TraderServer
         }
     }
 
-    private void handleInput( InputStreamReader reader ) throws IOException
+    private void handleInput( BufferedReader reader ) throws IOException
     {
-
+        String[] words = reader.readLine().split( "/" );
+        String cmd = words[0];
     }
 
     private void handleOutput( OutputStreamWriter writer ) throws IOException

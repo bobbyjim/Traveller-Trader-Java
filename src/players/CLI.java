@@ -9,7 +9,7 @@ public class CLI extends Player implements Playable
 {
     public void visitWorld()
     {
-        System.out.println( "Welcome to " + world.name + " (" + world.hex + "/" + world.sectorAbbreviation + ")" );
+        System.out.println( "Welcome to " + world.name + " (" + world.uwp + "/" + world.sectorAbbreviation + " " + world.hex + ")" );
 
         System.out.print( "Unloading passengers..." );
         ship.getHighPassengers().unload( world );
@@ -69,7 +69,7 @@ public class CLI extends Player implements Playable
         int selection = -1;
         while(selection == -1)
         {
-            System.out.println("Enter destination #: ");
+            System.out.println("Enter destination # (q = quit): ");
             try
             {
                 String input = console.readLine();

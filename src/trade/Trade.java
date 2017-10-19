@@ -10,9 +10,8 @@ public class Trade
 
     public int getSalePrice()
     {
-        int val = 5000
-                + (tradeCodes.size() * 1000)
-                + (int)( 0.1 * ( cargo.sourceTL - marketTL ));
+        int val = (5000 + (tradeCodes.size() * 1000))
+                * (int)( 1 + 0.1 * ( cargo.sourceTL - marketTL ));
 
         return val;
     }
