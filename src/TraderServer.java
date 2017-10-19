@@ -1,4 +1,8 @@
+import jdk.internal.util.xml.impl.Input;
+
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -27,13 +31,31 @@ public class TraderServer
         {
             if ( (client = serverSocket.accept()) != null )
             {
-
+                handleInput( new InputStreamReader( client.getInputStream() ) );
+                handleOutput( new OutputStreamWriter( client.getOutputStream() ) );
+                client.close();
             }
         }
         catch( IOException ioe )
         {
             System.err.println( "ERROR listening on server socket: " + ioe.getMessage() );
         }
+    }
+
+    private void handleInput( InputStreamReader reader ) throws IOException
+    {
+
+    }
+
+    private void handleOutput( OutputStreamWriter writer ) throws IOException
+    {
+        writer.write(
+                "HTTP/1.0 200\n"
+                        + "\n"
+                        + "TraderServer"
+        );
+
+        writer.flush();
     }
 
     public static void main( String[] args ) throws Exception

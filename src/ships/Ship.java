@@ -24,7 +24,13 @@ public class Ship implements Interstellar
     public Shippable highPassage = new HighPassengers();
     public Shippable midPassage = new MidPassengers();
     public Shippable lowPassage = new LowPassengers();
-    public Shippable cargo = new Cargo();
+    public Cargo cargo = new Cargo();
+
+    public void setCargo( Cargo cargo )
+    {
+        this.cargo = null;
+        this.cargo = cargo;
+    }
 
     public String getMissionCode()   { return mission; }
     public String getConfiguration() { return config; }
@@ -49,7 +55,7 @@ public class Ship implements Interstellar
     public Shippable getFreight() {
         return freight;
     }
-    public Shippable getCargo() {
+    public Cargo getCargo() {
         return cargo;
     }
     public Shippable getHighPassengers() {

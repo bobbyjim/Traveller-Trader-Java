@@ -17,7 +17,8 @@ public class HighPassengers implements Shippable
         return a - b;
     }
 
-    public int pricing(Interstellar ship, World world)
+    public int buyPrice( Interstellar ship, World world ) { return 0; }
+    public int sellPrice(Interstellar ship, World world)
     {
         return ship.getPassageDemand() * 1000 + 10000;
     }

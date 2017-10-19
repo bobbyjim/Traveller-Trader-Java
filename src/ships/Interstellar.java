@@ -1,5 +1,6 @@
 package ships;
 
+import trade.Cargo;
 import trade.Shippable;
 
 public interface Interstellar
@@ -16,8 +17,10 @@ public interface Interstellar
     boolean hasVault();
     int freeCargoSpace();
 
+    void setCargo(Cargo cargo);
+
     Shippable getFreight();
-    Shippable getCargo();
+    Cargo getCargo();
     Shippable getHighPassengers();
     Shippable getMidPassengers();
     Shippable getLowPassengers();

@@ -1,6 +1,7 @@
 package players;
 
-import worlds.World;
+import trade.*;
+import worlds.*;
 
 import java.io.Console;
 
@@ -20,46 +21,31 @@ public class CLI extends Player implements Playable
         ship.getFreight().unload( world );
         System.out.println( "done." );
 
+        System.out.println( "Unloading Speculative Cargo:");
+        Trade trade = TradeBuilder.buildTrade( ship.getCargo(), world );
+        System.out.println( "   Sale price per ton: Cr" + trade.getSalePrice() );
+        int net = trade.getSalePrice() - ship.getCargo().buyPrice;
+        System.out.println( "     net per ton: Cr" + net );
+
         System.out.println( "\nYour ship is equipped with Jump-" + ship.getJumpRange() + "\n" );
     }
 
     public void jump(World[] worlds)
     {
-        Console console = System.console();
-
         if ( worlds == null )
         {
             System.out.println( "No data." );
             return;
         }
 
-        System.out.println( "Destinations in range:" );
-        for (int i=0; i<worlds.length; i++)
-        {
-            String index = pad(i + "", 2);
-            System.out.println(index + ": " + worlds[i].toString());
-        }
+        printDestinations( worlds );
+        selectDestination( worlds );
 
-        int selection = 0;
-        while(selection == 0)
-        {
-            System.out.println("Enter destination #: ");
-            try
-            {
-                String input = console.readLine();
-                selection = Integer.parseInt( input );
-                if ( selection < 0 || selection >= worlds.length )
-                    selection = 0;
-            }
-            catch( Exception e )
-            {
-                System.err.println( "ERROR: process does not have a console for CLI input!  Quitting.");
-                System.exit(0);
-            }
-        }
+        loadShip();
+    }
 
-        this.world = worlds[selection];
-
+    private void loadShip()
+    {
         System.out.println( "Loading freight..." );
         ship.getFreight().load( this );
         System.out.println( "   " + ship.getFreight().getCount() + " tons." );
@@ -71,6 +57,48 @@ public class CLI extends Player implements Playable
         System.out.println( "   " + ship.getMidPassengers().getCount() + " mid" );
         ship.getHighPassengers().load( this );
         System.out.println( "   " + ship.getHighPassengers().getCount() + " high" );
+
+        System.out.println( "Loading Speculative Cargo..." );
+        ship.setCargo( CargoBuilder.buildCargo( world ) );
+        System.out.println( "   Buy price per ton: " + ship.getCargo().buyPrice );
+    }
+
+    private void selectDestination( World[] worlds )
+    {
+        Console console = System.console();
+        int selection = -1;
+        while(selection == -1)
+        {
+            System.out.println("Enter destination #: ");
+            try
+            {
+                String input = console.readLine();
+
+                if ( "q".equals(input) )
+                    System.exit(0);
+
+                selection = Integer.parseInt( input );
+                if ( selection < 0 || selection >= worlds.length )
+                    selection = -1;
+            }
+            catch( Exception e )
+            {
+                System.err.println( "ERROR: process does not have a console for CLI input!  Quitting.");
+                System.exit(0);
+            }
+        }
+
+        this.world = worlds[selection];
+    }
+
+    private void printDestinations( World[] worlds )
+    {
+        System.out.println( "Destinations in range:" );
+        for (int i=0; i<worlds.length; i++)
+        {
+            String index = pad(i + "", 2);
+            System.out.println(index + ": " + worlds[i].toString());
+        }
     }
 
     private String pad( String in, int length )

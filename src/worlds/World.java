@@ -47,21 +47,32 @@ public class World implements Serializable
         return remarks.split( "\\s+" );
     }
 
-    public Object[] tradeCodes()
+    public String[] tradeCodes()
     {
         ArrayList<String> list = new ArrayList<>();
         for( String tc : tcList )
         {
             if ( remarks.contains( tc ) ) list.add( tc );
         }
-        String[] out = (String[]) list.toArray();
-        return out;
+        String[] outtype = new String[1];
+        return list.toArray(outtype);
     }
 
     public int popDigit()
     {
-        String pop = uwp.substring(4,5);
-        switch( pop )
+        String pop = uwp.substring(4, 5);
+        return eHex( pop );
+    }
+
+    public int TL()
+    {
+        String tl = uwp.substring(8,9);
+        return eHex( tl );
+    }
+
+    private int eHex( String val )
+    {
+        switch( val )
         {
             default:
             case "0": return 0;
