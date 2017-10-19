@@ -19,6 +19,9 @@ Run the "TraderClient" class from the command line.  You'll start at Regina with
 * Add RESTful API for Player actions:
   * CREATE /v1/player/<playerID>   ; create a new player
   * GET /v1/player/<playerID>      ; player status
+* RESTful API for World actions:
+  * GET /v1/map/spin/1910          ; data about e.g. Regina
+  * GET /v1/map/spin/1910/jump/6   ; jump-6 map around e.g. Regina
 * Add RESTful API for Ship actions:
   * Player ID is in JSON body.
   * PUT /v1/ship/<hex>             ; jump to hex
