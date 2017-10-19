@@ -17,8 +17,8 @@ Run the "TraderClient" class from the command line.  You'll start at Regina with
 # TO DO
 * Persist player data (JSON).
 * Add RESTful API:
-  * Player ID is in JSON body of everything, except perhaps GET.
-  * PUT /v1/stats 
+  * Player ID is in JSON body of most things, except GETs.
+  * GET /v1/<playerID>             ; player status
   * PUT /v1/ship/<hex>             ; jump to hex
   * CREATE /v1/passengers/high     ; load ship with high passengers (etc)
   * PUT /v1/passengers             ; get passenger counts
@@ -26,7 +26,7 @@ Run the "TraderClient" class from the command line.  You'll start at Regina with
   * CREATE /v1/cargo/<tons>        ; buy speculative cargo
   * PUT /v1/cargo/<tons>           ; get speculative cargo buy/sell price?
   * DELETE /v1/cargo/<tons>        ; sell speculative cargo
-  * CREATE /v1/player              ; create a new player
+  * CREATE /v1/player/<playerID>   ; create a new player
 * Add "remote" client for computer-controlled ships (connects through API).
 * Improve the trade infrastructure.
 * Credit player with freight and passengers.
