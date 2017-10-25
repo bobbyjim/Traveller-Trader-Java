@@ -4,7 +4,9 @@ import players.Playable;
 import ships.Interstellar;
 import worlds.World;
 
-public interface Shippable
+import java.io.Serializable;
+
+public interface Shippable extends Serializable
 {
     int getCount();
     int buyPrice( Interstellar ship, World world );

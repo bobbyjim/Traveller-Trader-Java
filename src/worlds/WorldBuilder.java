@@ -1,5 +1,6 @@
 package worlds;
 
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -44,6 +45,7 @@ public class WorldBuilder
 
     public World build()
     {
+        world.createDay = (new Date()).getTime()/(24 * 60 * 60 * 1000); // to the day
         return world;
     }
 

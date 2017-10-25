@@ -13,11 +13,13 @@ public class TraderClient
 
     public static void main( String[] args ) throws Exception
     {
-        String playerType = "CLI";
-        if ( args.length > 0 )
-            playerType = args[0];
+        String playerName = "Jamison";
+        Playable player;
 
-        Playable player = PlayerFactory.createPlayer( playerType );
+        if ( args.length > 0 )
+            playerName = args[0];
+
+        player = PlayerFactory.getPlayer( playerName );
         TraderClient client = new TraderClient();
 
         while(true)
@@ -25,6 +27,7 @@ public class TraderClient
             player.visitWorld();
             World[] worlds = client.scan(player);
             player.jump(worlds);
+            PlayerFactory.savePlayer( player );
         }
     }
 }

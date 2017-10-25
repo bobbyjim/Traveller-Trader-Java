@@ -3,8 +3,12 @@ package players;
 import ships.Interstellar;
 import worlds.World;
 
-public interface Playable
+import java.io.Serializable;
+
+public interface Playable extends Serializable
 {
+    String getID();
+    void setID( String id );
     World getWorld();
     Interstellar getShip();
     void visitWorld();

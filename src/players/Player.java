@@ -3,10 +3,13 @@ package players;
 import ships.*;
 import worlds.*;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 public class Player implements Playable
 {
+    public String playerID = "Jameson";
+
     HashMap<String,Integer> skills = new HashMap<>();
     public World world;
     public Interstellar ship = ShipFactory.createShip( "Far Trader" );
@@ -22,6 +25,8 @@ public class Player implements Playable
         skills.put( "streetwise", 1 );
     }
 
+    public String getID() { return playerID; }
+    public void setID( String id ) { this.playerID = id; }
     public World getWorld() { return world; }
     public Interstellar getShip() { return ship; }
 

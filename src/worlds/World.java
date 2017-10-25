@@ -10,6 +10,8 @@ import java.util.ArrayList;
  */
 public class World implements Serializable
 {
+    public long createDay; // epoch
+
     public String name;
     public String hex;
     public String sectorAbbreviation;

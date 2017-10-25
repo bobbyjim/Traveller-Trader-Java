@@ -2,7 +2,9 @@ package ships;
 
 import trade.*;
 
-public class Ship implements Interstellar
+import java.io.Serializable;
+
+public class Ship implements Interstellar, Serializable
 {
     public String shipClass = "";
     public String sizeCode;

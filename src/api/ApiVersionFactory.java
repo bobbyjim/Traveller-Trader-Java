@@ -7,7 +7,7 @@ public class ApiVersionFactory
         switch( ver )
         {
             default:
-            case "v1": return new APIv1();
+            case "v0": return new APIv0();
         }
     }
 }

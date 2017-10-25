@@ -2,6 +2,7 @@ package maps;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.json.simple.util.Mapper;
 import worlds.World;
 import worlds.WorldBuilder;
 
@@ -17,13 +18,13 @@ public class TravellerMap implements MapAccessible
     public HashMap<String,Object> getWorld( String sector, String hex )
     {
         String json = get("https://travellermap.com/data/" + sector + "/" + hex);
-        return decode( json );
+        return Mapper.decode( json );
     }
 
     public World[] getJumpMap(String sector, String hex, int jumpnum )
     {
         String json = get( "https://travellermap.com/data/" + sector + "/" + hex + "/jump/" + jumpnum );
-        HashMap<String,Object> out = decode( json );
+        HashMap<String,Object> out = Mapper.decode( json );
         World[] worlds;
 
         ArrayList array = (ArrayList) out.get("Worlds");
@@ -36,21 +37,6 @@ public class TravellerMap implements MapAccessible
         }
 
         return worlds;
-    }
-
-    private HashMap<String,Object> decode( String json )
-    {
-        HashMap<String,Object> out;
-        try
-        {
-            return (HashMap<String, Object>) parser.parse(json);
-        }
-        catch( ParseException pe )
-        {
-            out = new HashMap<>();
-            out.put( "exception", pe.getMessage() );
-        }
-        return out;
     }
 
     private String get( String urlString )

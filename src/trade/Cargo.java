@@ -4,6 +4,7 @@ import players.Playable;
 import ships.Interstellar;
 import worlds.World;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Cargo implements Shippable
