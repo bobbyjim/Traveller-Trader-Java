@@ -33,6 +33,8 @@ public class WorldBuilder
                 .sectorShortname( "spin" )
                 .remarks( "Ri Pa Ph An Cp" )
                 .uwp( "A788899-C" )
+                .worldX( -110 )
+                .worldY( -71 )
                 .build();
     }
 

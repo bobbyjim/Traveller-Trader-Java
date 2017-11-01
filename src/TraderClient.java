@@ -5,29 +5,34 @@ import worlds.*;
 
 public class TraderClient
 {
+    Playable player;
+
+    public TraderClient( String name )
+    {
+        player = PlayerFactory.getPlayer( name );
+    }
+
     private World[] scan( Playable player )
     {
         MapAccessible api = MapFactory.getMapEngine("maps.TravellerMap");
-        return api.getJumpMap(player.getWorld().sectorAbbreviation, player.getWorld().hex, player.getShip().getJumpRange());
+        return api.getJumpMap(player.getWorld(), player.getWorld().sectorAbbreviation, player.getWorld().hex, player.getShip().getJumpRange());
     }
 
     public static void main( String[] args ) throws Exception
     {
         String playerName = "Jamison";
-        Playable player;
 
         if ( args.length > 0 )
             playerName = args[0];
 
-        player = PlayerFactory.getPlayer( playerName );
-        TraderClient client = new TraderClient();
+        TraderClient client = new TraderClient( playerName );
 
         while(true)
         {
-            player.visitWorld();
-            World[] worlds = client.scan(player);
-            player.jump(worlds);
-            PlayerFactory.savePlayer( player );
+            System.out.println( client.player.visitWorld() );
+            World[] worlds = client.scan( client.player );
+            client.player.jump(worlds);
+            PlayerFactory.savePlayer( client.player );
         }
     }
 }

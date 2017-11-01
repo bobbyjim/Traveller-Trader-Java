@@ -11,7 +11,9 @@ public interface Playable extends Serializable
     void setID( String id );
     World getWorld();
     Interstellar getShip();
-    void visitWorld();
+    String loadShip();
+    String unloadShip();
+    String visitWorld();
     void jump(World[] worlds);
     int getSkillLevel( String skill );
 }

@@ -11,12 +11,20 @@ public class PlayerFactory
     {
         switch( playerType )
         {
+            case "HTTP":
+                return new WebClient();
             case "CLI":
-            default: return new CLI();
+            default:
+                return new CLI();
         }
     }
 
     public static Playable getPlayer( String playerID )
+    {
+        return getPlayer( playerID, "CLI" );
+    }
+
+    public static Playable getPlayer( String playerID, String playerType )
     {
         String filename = playerID + ".ser";
         try
@@ -33,7 +41,7 @@ public class PlayerFactory
             // e.printStackTrace();
         }
         System.err.println( "Creating new player " + playerID );
-        Playable player = createPlayer( "CLI" );
+        Playable player = createPlayer( playerType );
         player.setID( playerID );
         return player;
     }

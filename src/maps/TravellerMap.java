@@ -21,7 +21,7 @@ public class TravellerMap implements MapAccessible
         return Mapper.decode( json );
     }
 
-    public World[] getJumpMap(String sector, String hex, int jumpnum )
+    public World[] getJumpMap(World currentWorld, String sector, String hex, int jumpnum )
     {
         String json = get( "https://travellermap.com/data/" + sector + "/" + hex + "/jump/" + jumpnum );
         HashMap<String,Object> out = Mapper.decode( json );
@@ -32,8 +32,12 @@ public class TravellerMap implements MapAccessible
         int i = 0;
         for (Object o1 : array)
         {
-            worlds[i] = WorldBuilder.build( (HashMap) o1 );
-            i++;
+            World world = WorldBuilder.build( (HashMap) o1 );
+            if ( world.distanceTo( currentWorld ) > 0 ) // exclude current world
+            {
+                worlds[i] = world;
+                i++;
+            }
         }
 
         return worlds;

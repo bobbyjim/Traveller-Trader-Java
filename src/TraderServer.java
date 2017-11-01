@@ -1,14 +1,19 @@
 import api.API;
 import api.ApiCommand;
 import api.ApiVersionFactory;
+import api.Jump;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import jdk.internal.util.xml.impl.Input;
+import players.Playable;
+import players.PlayerFactory;
+import players.WebClient;
 
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +43,7 @@ public class TraderServer
     {
         InetSocketAddress host = new InetSocketAddress( SERVER_PORT );
         HttpServer server = HttpServer.create( host, 0 );
-        server.createContext( "/", new TestOutput() );
+        server.createContext( "/v0/", new TestOutput() );
         server.setExecutor(null);
         server.start();
     }
@@ -48,21 +53,40 @@ public class TraderServer
         public void handle(HttpExchange t) throws IOException
         {
             // parse request
-/*            Map<String, Object> parameters = new HashMap<String, Object>();
-            URI requestedUri = he.getRequestURI();
+            URI requestedUri = t.getRequestURI();
+            String path = requestedUri.getPath();
+            Jump jump = splitPath( path );
             String query = requestedUri.getRawQuery();
-            parseQuery(query, parameters);*/
+            Map<String,Object> parameters = parseQuery(query);
 
-            String response = "Testing";
+            Playable player = PlayerFactory.getPlayer( jump.playerID, "WebClient" );
+
+            String response = player.visitWorld();
+
             t.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = t.getResponseBody();
             os.write( response.getBytes() );
             os.close();
         }
 
-        public static void parseQuery(String query, Map<String,
-                        Object> parameters) throws UnsupportedEncodingException {
+        public Jump splitPath( String path )
+        {
+            String[] pathArray = path.split( "/" );
+            String version     = pathArray[1];
+            String stemNoun    = pathArray[2];
+            String playerID    = pathArray[3];
+            String destination = "";
+            if ( pathArray.length > 4 )
+               destination = pathArray[4];
+            Jump jump = new Jump();
+            jump.playerID = playerID;
+            jump.destination = destination;
+            return jump;
+        }
 
+        public static Map<String,Object> parseQuery(String query) throws UnsupportedEncodingException {
+
+            Map<String, Object> parameters = new HashMap<>();
             if (query != null) {
                 String pairs[] = query.split("[&]");
                 for (String pair : pairs) {
@@ -96,6 +120,7 @@ public class TraderServer
                     }
                 }
             }
+            return parameters;
         }
     }
 }
