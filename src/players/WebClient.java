@@ -15,16 +15,14 @@ public class WebClient extends Player implements Playable
 
     }
 
-    private void printDestinations( World[] worlds )
+    public String printDestinations( World[] worlds )
     {
-        // return worlds in JSON?
-
-        /*System.out.println( "Destinations in range:" );
+        String out = "\nDestinations in range:";
         for (int i=0; i<worlds.length; i++)
         {
-            String index = pad(i + "", 2);
-            System.out.println(index + ": " + worlds[i].toString());
-        }*/
+            out += "\n<a href='/v0/jump/" + this.playerID + "/" + i + "'>" + i + "</a>" + worlds[i].toString();
+        }
+        return out;
     }
 
 }

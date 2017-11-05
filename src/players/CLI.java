@@ -15,7 +15,7 @@ public class CLI extends Player implements Playable
             return;
         }
 
-        printDestinations( worlds );
+        System.out.println( printDestinations( worlds ) );
         selectDestination( worlds );
 
         System.out.println( loadShip() );
@@ -47,22 +47,5 @@ public class CLI extends Player implements Playable
         }
 
         this.world = worlds[selection];
-    }
-
-    private void printDestinations( World[] worlds )
-    {
-        System.out.println( "Destinations in range:" );
-        for (int i=0; i<worlds.length; i++)
-        {
-            String index = pad(i + "", 2);
-            System.out.println(index + ": " + worlds[i].toString());
-        }
-    }
-
-    private String pad( String in, int length )
-    {
-        while( in.length() < length )
-            in = in.concat(" ");
-        return in;
     }
 }

@@ -14,6 +14,7 @@ public interface Playable extends Serializable
     String loadShip();
     String unloadShip();
     String visitWorld();
+    String printDestinations( World[] worlds );
     void jump(World[] worlds);
     int getSkillLevel( String skill );
 }

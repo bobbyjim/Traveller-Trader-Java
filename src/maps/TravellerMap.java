@@ -25,22 +25,25 @@ public class TravellerMap implements MapAccessible
     {
         String json = get( "https://travellermap.com/data/" + sector + "/" + hex + "/jump/" + jumpnum );
         HashMap<String,Object> out = Mapper.decode( json );
-        World[] worlds;
 
         ArrayList array = (ArrayList) out.get("Worlds");
-        worlds = new World[ array.size() ];
+        ArrayList<World> worlds = new ArrayList<>();
+
         int i = 0;
         for (Object o1 : array)
         {
             World world = WorldBuilder.build( (HashMap) o1 );
-            if ( world.distanceTo( currentWorld ) > 0 ) // exclude current world
+            int dist = world.distanceTo( currentWorld );
+            if ( dist > 0 ) // exclude current world
             {
-                worlds[i] = world;
-                i++;
+                worlds.add( world );
             }
         }
 
-        return worlds;
+        World[] outWorlds = new World[1];
+        outWorlds = worlds.toArray( outWorlds );
+
+        return outWorlds;
     }
 
     private String get( String urlString )

@@ -7,12 +7,13 @@ public class TraderClient
 {
     Playable player;
 
+    public TraderClient( Playable player ) { this.player = player; }
     public TraderClient( String name )
     {
         player = PlayerFactory.getPlayer( name );
     }
 
-    private World[] scan( Playable player )
+    public World[] scan( Playable player )
     {
         MapAccessible api = MapFactory.getMapEngine("maps.TravellerMap");
         return api.getJumpMap(player.getWorld(), player.getWorld().sectorAbbreviation, player.getWorld().hex, player.getShip().getJumpRange());

@@ -25,7 +25,22 @@ public class World implements Serializable
 
     public int distanceTo( World otherWorld )
     {
-        int row1 = worldY;
+        int dx = worldX - otherWorld.worldX;
+        int dy = worldY - otherWorld.worldY;
+        int adx = Math.abs( dx );
+        int ody = dy + Math.floorDiv( dy, 2 );
+        int sub = adx - ody;
+
+        if ( (worldX % 2 == 0) && (otherWorld.worldX % 2 != 0) )
+        {
+            ody += 1;
+        }
+
+        if ( sub > adx && sub > ody ) return sub;
+        if ( adx > ody ) return adx;
+        return ody;
+
+/*        int row1 = worldY;
         int row2 = otherWorld.worldY;
         int col1 = worldX;
         int col2 = otherWorld.worldX;
@@ -41,7 +56,7 @@ public class World implements Serializable
 
         if ( d1 > d2 && d2 > d3 ) return d1;
         if ( d2 > d1 && d1 > d3 ) return d2;
-        return d3; // last man standing
+        return d3; // last man standing*/
     }
 
     public String[] splitRemarks()

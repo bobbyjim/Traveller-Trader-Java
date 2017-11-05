@@ -9,6 +9,7 @@ import jdk.internal.util.xml.impl.Input;
 import players.Playable;
 import players.PlayerFactory;
 import players.WebClient;
+import worlds.World;
 
 import java.io.*;
 import java.net.*;
@@ -60,8 +61,11 @@ public class TraderServer
             Map<String,Object> parameters = parseQuery(query);
 
             Playable player = PlayerFactory.getPlayer( jump.playerID, "WebClient" );
+            TraderClient client = new TraderClient( player );
+            World[] worlds = client.scan( client.player );
 
-            String response = player.visitWorld();
+            String response = player.visitWorld()
+                    + player.printDestinations( worlds );
 
             t.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = t.getResponseBody();

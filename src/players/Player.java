@@ -34,54 +34,72 @@ public class Player implements Playable
 
     public String loadShip()
     {
-        String out = "Loading freight...";
+        String out = "\nLoading freight...";
         ship.getFreight().load( this );
         out += "   " + ship.getFreight().getCount() + " tons.";
 
-        out += "Loading passengers...";
+        out += "\nLoading passengers...";
         ship.getLowPassengers().load( this );
-        out += "   " + ship.getLowPassengers().getCount() + " low";
+        out += "\n   " + ship.getLowPassengers().getCount() + " low";
         ship.getMidPassengers().load( this );
-        out += "   " + ship.getMidPassengers().getCount() + " mid";
+        out += "\n   " + ship.getMidPassengers().getCount() + " mid";
         ship.getHighPassengers().load( this );
-        out += "   " + ship.getHighPassengers().getCount() + " high";
+        out += "\n   " + ship.getHighPassengers().getCount() + " high";
 
-        out += "Loading Speculative Cargo...";
+        out += "\nLoading Speculative Cargo...";
         ship.setCargo( CargoBuilder.buildCargo( world ) );
-        out += "   Buy price per ton: " + ship.getCargo().buyPrice ;
+        out += "\n   Buy price per ton: " + ship.getCargo().buyPrice ;
         return out;
     }
 
     public String unloadShip()
     {
-        String out = "Unloading passengers...";
+        String out = "\nUnloading passengers...";
         ship.getHighPassengers().unload( world );
         ship.getMidPassengers().unload( world );
         ship.getLowPassengers().unload( world );
         out += "done.";
 
-        out += "Unloading freight...";
+        out += "\nUnloading freight...";
         ship.getFreight().unload( world );
         out += "done.";
 
-        out += "Unloading Speculative Cargo:";
+        out += "\nUnloading Speculative Cargo:";
         Trade trade = TradeBuilder.buildTrade( ship.getCargo(), world );
-        out += "Spec Cargo sale price:   " + trade.getSalePrice();
-        out += "Spec Cargo origin price: " + ship.getCargo().buyPrice;
+        out += "\nSpec Cargo sale price:   " + trade.getSalePrice();
+        out += "\nSpec Cargo origin price: " + ship.getCargo().buyPrice;
         int net = trade.getSalePrice() - ship.getCargo().buyPrice;
         if ( net < (int)(Math.random() * 1000) ) // simulate the time value of money, Monte Carlo style.
-            out += "   Will not sell cargo.";
+            out += "\n   Will not sell cargo.";
         else
-            out += "   Net profit: Cr " + net + " per ton.";
+            out += "\n   Net profit: Cr " + net + " per ton.";
 
         return out;
     }
 
     public String visitWorld()
     {
-        String out = "Welcome to " + world.name + " (" + world.uwp + "/" + world.sectorAbbreviation + " " + world.hex + ")";
+        String out = "\nWelcome to " + world.name + " (" + world.uwp + "/" + world.sectorAbbreviation + " " + world.hex + ")";
         out += unloadShip();
         return out;
+    }
+
+    public String printDestinations( World[] worlds )
+    {
+        String out = "\nDestinations in range:";
+        for (int i=0; i<worlds.length; i++)
+        {
+            String index = pad(i + "", 2);
+            out += "\n " + index + ": " + worlds[i].toString();
+        }
+        return out;
+    }
+
+    private String pad( String in, int length )
+    {
+        while( in.length() < length )
+            in = in.concat(" ");
+        return in;
     }
 
     public void jump(World[] worlds)
