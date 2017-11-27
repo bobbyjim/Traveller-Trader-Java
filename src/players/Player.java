@@ -30,6 +30,8 @@ public class Player implements Playable
     public String getID() { return playerID; }
     public void setID( String id ) { this.playerID = id; }
     public World getWorld() { return world; }
+    public void setWorld( World w ) { this.world = w; }
+
     public Interstellar getShip() { return ship; }
 
     public String loadShip()

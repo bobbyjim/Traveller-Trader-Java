@@ -1,14 +1,9 @@
-import api.API;
-import api.ApiCommand;
-import api.ApiVersionFactory;
 import api.Jump;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import jdk.internal.util.xml.impl.Input;
 import players.Playable;
 import players.PlayerFactory;
-import players.WebClient;
 import worlds.World;
 
 import java.io.*;
@@ -47,6 +42,7 @@ public class TraderServer
         server.createContext( "/v0/", new TestOutput() );
         server.setExecutor(null);
         server.start();
+        System.out.println( "Server listening on port " + SERVER_PORT );
     }
 
     static class TestOutput implements HttpHandler
@@ -67,6 +63,14 @@ public class TraderServer
             String response = player.visitWorld()
                     + player.printDestinations( worlds );
 
+            if ( jump.destination > -1 )
+            {
+                // we have a destination
+                player.setWorld( worlds[ jump.destination ] );
+                response += "\nJumping to " + player.getWorld().name + "\n";
+                PlayerFactory.savePlayer( player );
+            }
+
             t.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = t.getResponseBody();
             os.write( response.getBytes() );
@@ -79,9 +83,9 @@ public class TraderServer
             String version     = pathArray[1];
             String stemNoun    = pathArray[2];
             String playerID    = pathArray[3];
-            String destination = "";
+            int destination    = -1;
             if ( pathArray.length > 4 )
-               destination = pathArray[4];
+               destination = Integer.parseInt( pathArray[4] );
             Jump jump = new Jump();
             jump.playerID = playerID;
             jump.destination = destination;

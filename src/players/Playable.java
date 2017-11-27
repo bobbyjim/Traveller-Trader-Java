@@ -10,6 +10,7 @@ public interface Playable extends Serializable
     String getID();
     void setID( String id );
     World getWorld();
+    void setWorld( World w );
     Interstellar getShip();
     String loadShip();
     String unloadShip();
