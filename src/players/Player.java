@@ -14,6 +14,7 @@ public class Player implements Playable
 
     HashMap<String,Integer> skills = new HashMap<>();
     public World world;
+    public boolean unloaded = false; // this should be an Enum state: unloaded, loaded, in_transit or something
     public Interstellar ship = ShipFactory.createShip( "Far Trader" );
     public double mcr = 1.0;
 
@@ -30,52 +31,69 @@ public class Player implements Playable
     public String getID() { return playerID; }
     public void setID( String id ) { this.playerID = id; }
     public World getWorld() { return world; }
-    public void setWorld( World w ) { this.world = w; }
+    public void setWorld( World w )
+    {
+        this.world = w;
+        this.unloaded = false;
+    }
 
     public Interstellar getShip() { return ship; }
 
     public String loadShip()
     {
-        String out = "\nLoading freight...";
-        ship.getFreight().load( this );
-        out += "   " + ship.getFreight().getCount() + " tons.";
+        String out = "";
+        if ( this.unloaded )
+        {
+            out = "\nLoading freight...";
+            ship.getFreight().load(this);
+            out += "   " + ship.getFreight().getCount() + " tons.";
 
-        out += "\nLoading passengers...";
-        ship.getLowPassengers().load( this );
-        out += "\n   " + ship.getLowPassengers().getCount() + " low";
-        ship.getMidPassengers().load( this );
-        out += "\n   " + ship.getMidPassengers().getCount() + " mid";
-        ship.getHighPassengers().load( this );
-        out += "\n   " + ship.getHighPassengers().getCount() + " high";
+            out += "\nLoading passengers...";
+            ship.getLowPassengers().load(this);
+            out += "\n   " + ship.getLowPassengers().getCount() + " low";
+            ship.getMidPassengers().load(this);
+            out += "\n   " + ship.getMidPassengers().getCount() + " mid";
+            ship.getHighPassengers().load(this);
+            out += "\n   " + ship.getHighPassengers().getCount() + " high";
 
-        out += "\nLoading Speculative Cargo...";
-        ship.setCargo( CargoBuilder.buildCargo( world ) );
-        out += "\n   Buy price per ton: " + ship.getCargo().buyPrice ;
+            out += "\nLoading Speculative Cargo...";
+            ship.setCargo(CargoBuilder.buildCargo(world));
+            out += "\n   Buy price per ton: " + ship.getCargo().buyPrice;
+        }
+        else
+        {
+            // do nothing
+        }
         return out;
     }
 
     public String unloadShip()
     {
-        String out = "\nUnloading passengers...";
-        ship.getHighPassengers().unload( world );
-        ship.getMidPassengers().unload( world );
-        ship.getLowPassengers().unload( world );
-        out += "done.";
+        String out = "";
+        if ( unloaded == false )
+        {
+            out = "\nUnloading passengers...";
+            ship.getHighPassengers().unload(world);
+            ship.getMidPassengers().unload(world);
+            ship.getLowPassengers().unload(world);
+            out += "done.";
 
-        out += "\nUnloading freight...";
-        ship.getFreight().unload( world );
-        out += "done.";
+            out += "\nUnloading freight...";
+            ship.getFreight().unload(world);
+            out += "done.";
 
-        out += "\nUnloading Speculative Cargo:";
-        Trade trade = TradeBuilder.buildTrade( ship.getCargo(), world );
-        out += "\nSpec Cargo sale price:   " + trade.getSalePrice();
-        out += "\nSpec Cargo origin price: " + ship.getCargo().buyPrice;
-        int net = trade.getSalePrice() - ship.getCargo().buyPrice;
-        if ( net < (int)(Math.random() * 1000) ) // simulate the time value of money, Monte Carlo style.
-            out += "\n   Will not sell cargo.";
-        else
-            out += "\n   Net profit: Cr " + net + " per ton.";
+            out += "\nUnloading Speculative Cargo:";
+            Trade trade = TradeBuilder.buildTrade(ship.getCargo(), world);
+            out += "\nSpec Cargo sale price:   " + trade.getSalePrice();
+            out += "\nSpec Cargo origin price: " + ship.getCargo().buyPrice;
+            int net = trade.getSalePrice() - ship.getCargo().buyPrice;
+            if (net < (int) (Math.random() * 1000)) // simulate the time value of money, Monte Carlo style.
+                out += "\n   Will not sell cargo.";
+            else
+                out += "\n   Net profit: Cr " + net + " per ton.";
 
+            unloaded = true;
+        }
         return out;
     }
 

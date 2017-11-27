@@ -2,12 +2,13 @@ package api.v0;
 
 import api.ApiCommand;
 
-import java.io.BufferedReader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class V0DoNothing implements ApiCommand
 {
-    public String handle(String[] path, BufferedReader reader)
+    public String handle(String[] path, Map<String,Object> parameters, HashMap<String,Object> jsonMap )
     {
-        return "Ship waits.";
+        return "V0Ship waits.";
     }
 }

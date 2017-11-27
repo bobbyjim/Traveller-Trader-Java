@@ -1,3 +1,5 @@
+package client;
+
 import maps.MapAccessible;
 import maps.MapFactory;
 import players.*;
@@ -5,7 +7,7 @@ import worlds.*;
 
 public class TraderClient
 {
-    Playable player;
+    public Playable player;
 
     public TraderClient( Playable player ) { this.player = player; }
     public TraderClient( String name )

@@ -5,7 +5,7 @@ Traveller5 trade engine
 100% Java
 
 # Synopsis
-Run the "TraderClient" class from the command line.  You'll start at Regina with a Jump-2 ship and unlimited fuel.
+Run the "client.TraderClient" class from the command line.  You'll start at Regina with a Jump-2 ship and unlimited fuel.
 
 # Status
 * Pulls data from TravellerMap.

@@ -1,11 +1,12 @@
 package api;
 
-import java.io.BufferedReader;
+import java.util.HashMap;
+import java.util.Map;
 
 public interface ApiCommand {
-    String handle(String[] path, BufferedReader reader );
+
+    String handle(String[] path, Map<String,Object> parameters, HashMap<String,Object> jsonMap  );
 
     String notImplemented = "not implemented";
     String unknownCommand = "unknown command";
-
 }

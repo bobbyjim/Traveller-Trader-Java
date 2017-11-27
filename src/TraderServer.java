@@ -1,95 +1,61 @@
-import api.Jump;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
-import players.Playable;
-import players.PlayerFactory;
-import worlds.World;
+import api.API;
+import api.ApiCommand;
+import api.ApiVersionFactory;
+import com.sun.net.httpserver.*;
+import org.json.simple.util.Mapper;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TraderServer
 {
     private static int SERVER_PORT = 2244; // "TRAV"
-    //private HttpServer server;
-
-    /*
-    private String handleInput( BufferedReader reader ) throws IOException
-    {
-        String[] words = reader.readLine().split( " " );
-        String verb = words[0];
-        String path = words[1];
-
-        String[] pathArray = path.split( "/" );
-        String version  = pathArray[0];
-        String stemNoun = pathArray[1];
-
-        API api = ApiVersionFactory.getApiVersion( version );
-        ApiCommand cmd = api.getCommand( verb, stemNoun );
-        return cmd.handle( pathArray, reader );
-    }
-    */
 
     public static void main( String[] args ) throws Exception
     {
         InetSocketAddress host = new InetSocketAddress( SERVER_PORT );
         HttpServer server = HttpServer.create( host, 0 );
-        server.createContext( "/v0/", new TestOutput() );
+        server.createContext( "/v0/", new ApiContext() );
         server.setExecutor(null);
         server.start();
         System.out.println( "Server listening on port " + SERVER_PORT );
     }
 
-    static class TestOutput implements HttpHandler
+    static class ApiContext implements HttpHandler
     {
         public void handle(HttpExchange t) throws IOException
         {
-            // parse request
             URI requestedUri = t.getRequestURI();
-            String path = requestedUri.getPath();
-            Jump jump = splitPath( path );
+            // get parameters, if any
             String query = requestedUri.getRawQuery();
             Map<String,Object> parameters = parseQuery(query);
 
-            Playable player = PlayerFactory.getPlayer( jump.playerID, "WebClient" );
-            TraderClient client = new TraderClient( player );
-            World[] worlds = client.scan( client.player );
+            // get stem noun
+            String path = requestedUri.getPath();
+            String[] pathArray = path.split( "/" );
+            String version     = pathArray[1];
+            String stemNoun    = pathArray[2];
 
-            String response = player.visitWorld()
-                    + player.printDestinations( worlds );
+            // get sub-handler based on stem noun
+            API api = ApiVersionFactory.getApiVersion( version );
+            ApiCommand cmd = api.getCommand( stemNoun );
 
-            if ( jump.destination > -1 )
+            // read body, if any
+            BufferedReader br = new BufferedReader( new InputStreamReader( t.getRequestBody() ) );
+            HashMap<String,Object> jsonMap = Mapper.decode( br );
+            if ( jsonMap.containsKey( "Exception" ) ) // nothing there -- throw on floor.
             {
-                // we have a destination
-                player.setWorld( worlds[ jump.destination ] );
-                response += "\nJumping to " + player.getWorld().name + "\n";
-                PlayerFactory.savePlayer( player );
+                jsonMap = null;
             }
+
+            // handle request
+            String response =  cmd.handle( pathArray, parameters, jsonMap );
 
             t.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = t.getResponseBody();
             os.write( response.getBytes() );
             os.close();
-        }
-
-        public Jump splitPath( String path )
-        {
-            String[] pathArray = path.split( "/" );
-            String version     = pathArray[1];
-            String stemNoun    = pathArray[2];
-            String playerID    = pathArray[3];
-            int destination    = -1;
-            if ( pathArray.length > 4 )
-               destination = Integer.parseInt( pathArray[4] );
-            Jump jump = new Jump();
-            jump.playerID = playerID;
-            jump.destination = destination;
-            return jump;
         }
 
         public static Map<String,Object> parseQuery(String query) throws UnsupportedEncodingException {
