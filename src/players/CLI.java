@@ -17,7 +17,6 @@ public class CLI extends Player implements Playable
 
         System.out.println( printDestinations( worlds ) );
         selectDestination( worlds );
-
         System.out.println( loadShip() );
     }
 

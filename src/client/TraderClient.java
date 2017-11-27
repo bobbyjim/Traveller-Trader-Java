@@ -32,7 +32,8 @@ public class TraderClient
 
         while(true)
         {
-            System.out.println( client.player.visitWorld() );
+            System.out.println( client.player.youAreHere() );
+            System.out.println( client.player.unloadShip() );
             World[] worlds = client.scan( client.player );
             client.player.jump(worlds);
             PlayerFactory.savePlayer( client.player );

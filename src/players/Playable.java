@@ -12,9 +12,9 @@ public interface Playable extends Serializable
     World getWorld();
     void setWorld( World w );
     Interstellar getShip();
-    String loadShip();
+    String youAreHere();
     String unloadShip();
-    String visitWorld();
+    String loadShip();
     String printDestinations( World[] worlds );
     void jump(World[] worlds);
     int getSkillLevel( String skill );

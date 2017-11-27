@@ -31,14 +31,20 @@ public class V0Ship implements ApiCommand
         TraderClient client = new TraderClient( player );
         World[] worlds = client.scan( client.player );
 
-        String response = player.visitWorld()
-                + player.printDestinations( worlds );
+        String response = player.youAreHere()
+                + player.unloadShip();
 
         if ( jump.destination > -1 )
         {
             // we have a destination
+            response += player.loadShip();
             player.setWorld( worlds[ jump.destination ] );
             response += "\nJumping to " + player.getWorld().name + "\n";
+        }
+        else
+        {
+            // show destination list
+            response += player.printDestinations( worlds );
         }
 
         PlayerFactory.savePlayer( player );

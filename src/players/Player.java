@@ -42,7 +42,7 @@ public class Player implements Playable
     public String loadShip()
     {
         String out = "";
-        if ( this.unloaded )
+        if ( this.unloaded  )
         {
             out = "\nLoading freight...";
             ship.getFreight().load(this);
@@ -59,10 +59,6 @@ public class Player implements Playable
             out += "\nLoading Speculative Cargo...";
             ship.setCargo(CargoBuilder.buildCargo(world));
             out += "\n   Buy price per ton: " + ship.getCargo().buyPrice;
-        }
-        else
-        {
-            // do nothing
         }
         return out;
     }
@@ -97,11 +93,9 @@ public class Player implements Playable
         return out;
     }
 
-    public String visitWorld()
+    public String youAreHere()
     {
-        String out = "\nWelcome to " + world.name + " (" + world.uwp + "/" + world.sectorAbbreviation + " " + world.hex + ")";
-        out += unloadShip();
-        return out;
+        return "\nWelcome to " + world.name + " (" + world.uwp + "/" + world.sectorAbbreviation + " " + world.hex + ")";
     }
 
     public String printDestinations( World[] worlds )
