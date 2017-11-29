@@ -14,6 +14,8 @@ import java.util.Map;
 
 public class V0Ship implements ApiCommand
 {
+    public String name() { return "ship"; }
+
     /*
      * Signature:
      *
@@ -55,7 +57,7 @@ public class V0Ship implements ApiCommand
         return response;
     }
 
-    public Jump splitPath( String[] path )
+    private Jump splitPath( String[] path )
     {
         String version     = path[1];
         String stemNoun    = path[2];
