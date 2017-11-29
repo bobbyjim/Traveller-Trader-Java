@@ -22,5 +22,9 @@ public class Trader
 
         new InternalDataServer( internalPort );
         new ExternalDataServer( externalPort );
+
+        //
+        //  TODO: Launch client
+        //
     }
 }
