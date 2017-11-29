@@ -21,6 +21,18 @@ public class TraderClient
         return api.getJumpMap(player.getWorld(), player.getWorld().sectorAbbreviation, player.getWorld().hex, player.getShip().getJumpRange());
     }
 
+    public void run()
+    {
+        while(true)
+        {
+            System.out.println( this.player.youAreHere() );
+            System.out.println( this.player.unloadShip() );
+            World[] worlds = this.scan( this.player );
+            this.player.jump(worlds);
+            PlayerFactory.savePlayer( this.player );
+        }
+    }
+
     public static void main( String[] args ) throws Exception
     {
         String playerName = "Jamison";
@@ -30,13 +42,6 @@ public class TraderClient
 
         TraderClient client = new TraderClient( playerName );
 
-        while(true)
-        {
-            System.out.println( client.player.youAreHere() );
-            System.out.println( client.player.unloadShip() );
-            World[] worlds = client.scan( client.player );
-            client.player.jump(worlds);
-            PlayerFactory.savePlayer( client.player );
-        }
+        client.run();
     }
 }

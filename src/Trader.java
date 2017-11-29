@@ -1,3 +1,4 @@
+import client.TraderClient;
 import network.ExternalDataServer;
 import network.InternalDataServer;
 
@@ -24,7 +25,8 @@ public class Trader
         new ExternalDataServer( externalPort );
 
         //
-        //  TODO: Launch client
+        //  Launch client using playerName
         //
+        new TraderClient( playerName ).run();
     }
 }
