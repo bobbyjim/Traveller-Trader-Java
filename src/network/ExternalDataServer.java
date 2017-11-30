@@ -1,11 +1,8 @@
 package network;
 
 import api.API;
-import api.ApiVersionFactory;
-import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 
 /**
  * Serves queries from peers, 11/29/2017.

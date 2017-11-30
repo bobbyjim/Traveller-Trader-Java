@@ -16,12 +16,6 @@ public class V0Ship implements ApiCommand
 {
     public String name() { return "ship"; }
 
-    /*
-     * Signature:
-     *
-     * PATCH /v0/ship/<playerid>[/destination]
-     *
-     */
     public String handle(String[] path, Map<String,Object> parameters, HashMap<String,Object> jsonMap  )
     {
         //
@@ -33,20 +27,22 @@ public class V0Ship implements ApiCommand
         TraderClient client = new TraderClient( player );
         World[] worlds = client.scan( client.player );
 
-        String response = player.youAreHere()
-                + player.unloadShip();
+        String response = "MESSAGE:\n"
+                + player.youAreHere() + "\n"
+                + player.unloadShip() + "\n"
+                ;
 
         if ( jump.destination > -1 )
         {
             // we have a destination
-            response += player.loadShip();
+            response += player.loadShip() + "\n";
             player.setWorld( worlds[ jump.destination ] );
             response += "\nJumping to " + player.getWorld().name + "\n";
         }
         else
         {
             // show destination list
-            response += player.printDestinations( worlds );
+            response += player.printDestinations( worlds ) + "\n";
         }
 
         PlayerFactory.savePlayer( player );

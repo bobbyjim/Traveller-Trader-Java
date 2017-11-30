@@ -1,7 +1,6 @@
 package network;
 
 import api.API;
-import api.APIv0CommandFactory;
 import api.ApiCommand;
 import api.ApiVersionFactory;
 import com.sun.net.httpserver.HttpExchange;
@@ -42,9 +41,10 @@ class V0Context implements HttpHandler
         ApiCommand cmd = api.getDefaultCommand();
         for( ApiCommand command : commands )
         {
-            if ( stemNoun.equalsIgnoreCase( cmd.name() ))
+            if ( stemNoun.equalsIgnoreCase( command.name() ))
             {
                 cmd = command;
+                break;
             }
         }
 
