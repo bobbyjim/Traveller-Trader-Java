@@ -8,12 +8,12 @@ import java.util.Map;
 /**
  * "Jump" command 11/29/2017.
  */
-public class V0Jump implements ApiCommand
+public class V0Jump extends V0Ship implements ApiCommand
 {
     public String name() { return "jump"; }
 
-    public String handle(String[] path, Map<String,Object> parameters, HashMap<String,Object> jsonMap  )
-    {
-        return "not implemented";
-    }
+//    public String handle(String[] path, Map<String,Object> parameters, HashMap<String,Object> jsonMap  )
+//    {
+//        return "not implemented";
+//    }
 }

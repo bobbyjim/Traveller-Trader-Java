@@ -23,26 +23,24 @@ public class V0Ship implements ApiCommand
         //
         Jump jump = splitPath( path );
 
-        Playable player = PlayerFactory.getPlayer( jump.playerID, "WebClient" );
+        Playable player = PlayerFactory.getPlayer( jump.playerID, "HTTP" );
         TraderClient client = new TraderClient( player );
         World[] worlds = client.scan( client.player );
 
-        String response = "MESSAGE:\n"
-                + player.youAreHere() + "\n"
-                + player.unloadShip() + "\n"
-                ;
+        String response =
+                player.youAreHere()
+              + player.unloadShip();
 
         if ( jump.destination > -1 )
         {
             // we have a destination
-            response += player.loadShip() + "\n";
-            player.setWorld( worlds[ jump.destination ] );
-            response += "\nJumping to " + player.getWorld().name + "\n";
+            response += player.loadShip();
+            response += player.setWorld( worlds[ jump.destination ] ) + "\n";
         }
         else
         {
             // show destination list
-            response += player.printDestinations( worlds ) + "\n";
+            response += player.printDestinations( worlds );
         }
 
         PlayerFactory.savePlayer( player );

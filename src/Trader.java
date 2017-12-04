@@ -19,7 +19,7 @@ public class Trader
             case 4:  cli          = "cli".equals( args[3] );
             case 3:  externalPort = Integer.parseInt( args[2] );
             case 2:  internalPort = Integer.parseInt( args[1] );
-            case 1:  playerName = args[0];
+            case 1:  playerName   = args[0];
             default: break;
         }
 
@@ -32,6 +32,6 @@ public class Trader
         if ( cli )
             new TraderClient( playerName ).run();
         else // snooze forever
-            for(;;) { Thread.sleep( 60 * 1000 ); }
+            while(true) { Thread.sleep( 60 * 1000 ); }
     }
 }

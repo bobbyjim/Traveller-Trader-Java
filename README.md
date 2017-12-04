@@ -1,48 +1,29 @@
 # Trader
-Traveller5 trade engine
+Interstellar merchant simulation. Carry passengers and cargo to other worlds!
 
 # Source
 100% Java
 
 # Synopsis
-Run the "client.TraderClient" class from the command line.  You'll start at Regina with a Jump-2 ship and unlimited fuel.
+Run the "worlds.Trader" class from the command line.  You'll start at Regina, a world with reasonable
+ interstellar commercial value.  You play by moving your ship to other worlds; currently, the simulator
+ automatically takes on and drops off passengers and freight, and calculates local cargo prices.
 
 # Status
-* Pulls data from TravellerMap.
-* Displays worlds within some number of parsecs from the current location.
+* "Star chart" map data is pulled from TravellerMap.com.
+* Nearby worlds are listed.
 * Enter the world's list number to jump there.
-* Automatically loads and unloads freight and passengers at each stop.
-* Cargo rules working (via CargoBuilder and TradeBuilder).
+* Your data is persisted in a serialized Java object.
+* An early REST API lets you get your status and set your destination.
+
+# REST calls
+* http://localhost:2244/v0/ship/<name> - returns status
+* http://localhost:2244/v0/ship/<name>/<destination> - sets destination
 
 # TO DO
-* Persist player data (JSON).
-* RESTful API for Player actions:
-  * CREATE /v1/player/<playerID>   ; create a new player
-  * GET /v1/player/<playerID>      ; player status
-* RESTful API for World actions:
-  * GET /v1/map/spin/1910          ; data about e.g. Regina
-  * GET /v1/map/spin/1910/jump/6   ; jump-6 map around e.g. Regina
-* RESTful API for Ship actions:
-  * Player ID is in JSON body.
-  * PUT /v1/ship/<sector>/<hex>    ; jump to hex
-  * PUT /v1/ship/fuel/refined/<tons>        ; buy e.g. refined fuel
-* RESTful API for passenger actions:
-  * Player ID is in JSON body.
-  * CREATE /v1/passengers/high     ; load ship with high passengers (etc)
-  * PUT /v1/passengers             ; get passenger counts
-  * DELETE /v1/passengers          ; unload all passengers
-* RESTful API for cargo actions:
-  * Player ID is in JSON body.
-  * CREATE /v1/cargo/<tons>        ; buy speculative cargo
-  * PUT /v1/cargo/<tons>           ; get speculative cargo buy/sell price?
-  * DELETE /v1/cargo/<tons>        ; sell speculative cargo
+* Expand REST calls for payload management and player interactions.
 * Add "remote" client for computer-controlled ships (connects through API).
-* Improve the trade infrastructure.
 * Credit player with freight and passengers.
 * Add refueling options.
-* Add peer-to-peer communication options.
-* Change MapFactory to return a "MapDataSource" object.
-* MapDataSource is "backed" by a resource based on factory param (e.g. "TravellerMap").
-* MapDataSource also manages a (JSON? serialized objects?) cache of previously collected data.  This cache is checked first.
-* Client should use a Location Manager to get/set persisted location (which later should query TraderServer).
-* ...and more.
+* Add communication routing between clients.
+* More.

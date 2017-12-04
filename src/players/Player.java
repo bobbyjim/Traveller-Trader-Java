@@ -8,17 +8,17 @@ import worlds.*;
 
 import java.util.HashMap;
 
-public class Player implements Playable
+class Player implements Playable
 {
-    public String playerID = "Jameson";
+    String playerID = "Jameson";
 
-    HashMap<String,Integer> skills = new HashMap<>();
+    private HashMap<String,Integer> skills = new HashMap<>();
     public World world;
-    public boolean unloaded = false; // this should be an Enum state: unloaded, loaded, in_transit or something
+    boolean unloaded = false; // this should be an Enum state: unloaded, loaded, in_transit or something
     public Interstellar ship = ShipFactory.createShip( "Far Trader" );
     public double mcr = 1.0;
 
-    public Player()
+    Player()
     {
         world = WorldBuilder.BuildRegina();
 
@@ -31,10 +31,11 @@ public class Player implements Playable
     public String getID() { return playerID; }
     public void setID( String id ) { this.playerID = id; }
     public World getWorld() { return world; }
-    public void setWorld( World w )
+    public String setWorld( World w )
     {
         this.world = w;
         this.unloaded = false;
+        return "Destination: " + w.name;
     }
 
     public Interstellar getShip() { return ship; }
@@ -66,7 +67,7 @@ public class Player implements Playable
     public String unloadShip()
     {
         String out = "";
-        if ( unloaded == false )
+        if ( !unloaded )
         {
             out = "\nUnloading passengers...";
             ship.getHighPassengers().unload(world);
@@ -118,7 +119,7 @@ public class Player implements Playable
 
     public void jump(World[] worlds)
     {
-
+        /* do nothing */
     }
 
     public int getSkillLevel( String skill )
