@@ -1,5 +1,9 @@
 package api;
 
+/**
+ * Since REST services appear to go through version numbers, plan ahead and
+ * create a factory class for fetching the version you want.
+ */
 public class ApiVersionFactory
 {
     private static API v0factory = new APIv0CommandFactory();

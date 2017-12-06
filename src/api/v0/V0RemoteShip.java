@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * Remote ship retriever, 11/29/2017.
+ * Use this command to get the status of another ship.
  */
 public class V0RemoteShip implements ApiCommand
 {

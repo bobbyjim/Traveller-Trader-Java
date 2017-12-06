@@ -1,17 +1,17 @@
 package api.v0;
 
 import api.ApiCommand;
-import api.Jump;
 import client.TraderClient;
-import org.json.simple.util.Mapper;
 import players.Playable;
 import players.PlayerFactory;
 import worlds.World;
 
-import java.io.BufferedReader;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Use this command to get information on your ship.
+ */
 public class V0Ship implements ApiCommand
 {
     public String name() { return "ship"; }
@@ -65,4 +65,9 @@ public class V0Ship implements ApiCommand
         return jump;
     }
 
+    class Jump // doesn't do a lot... for now
+    {
+        public String playerID = "";
+        public int destination = 0;
+    }
 }

@@ -5,6 +5,12 @@ import java.util.HashMap;
 
 /**
  * Created by eagro02 on 10/17/2017.
+ *
+ * Builds worlds in a polite way for you.
+ * If you have world data stored in a HashMap, the constructor will build you a world from it.
+ *
+ * It will also build the archetypical default world (Regina) for you, but that should really
+ * be in a WorldFactory.
  */
 public class WorldBuilder
 {
@@ -25,7 +31,7 @@ public class WorldBuilder
                 .build();
     }
 
-    public static World BuildRegina()
+    public static World BuildRegina() // TODO: move to a factory
     {
         return  WorldBuilder.create()
                 .name( "Regina" )

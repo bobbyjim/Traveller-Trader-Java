@@ -2,6 +2,7 @@ package ships;
 
 /**
  * Created by eagro02 on 10/17/2017.
+ * A handy way to build a ship.
  */
 public class ShipBuilder
 {

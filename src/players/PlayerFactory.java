@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Actually more like a Player Broker.  Handles creation and fetching of players.
+ */
 public class PlayerFactory
 {
     public static Playable createPlayer( String playerType )
@@ -24,6 +27,16 @@ public class PlayerFactory
         return getPlayer( playerID, "CLI" );
     }
 
+    /**
+     * TODO: Complicated and in need of refactoring.
+     *
+     * Attempts to deserialize a player; if there's an exception, then the player doesn't exist
+     * or the format has changed, so create a new one with the given name.
+     *
+     * @param playerID player name
+     * @param playerType CLI or HTTP
+     * @return Playable player object
+     */
     public static Playable getPlayer( String playerID, String playerType )
     {
         String filename = playerID + ".ser";
@@ -46,6 +59,11 @@ public class PlayerFactory
         return player;
     }
 
+    /**
+     * Attempts to serialize the player object to disk.
+     *
+     * @param player Playable player object
+     */
     public static void savePlayer( Playable player )
     {
         String filename = player.getID() + ".ser";

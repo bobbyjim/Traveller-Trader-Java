@@ -4,6 +4,11 @@ import players.Playable;
 import ships.Interstellar;
 import worlds.World;
 
+/**
+ * Passengers shipped via freezer.
+ * Low passengers are recruited better if you have Streetwise skill.
+ * The higher your ship's demand rating is, the more passengers will pay to travel with you.
+ */
 public class LowPassengers implements Shippable
 {
     public int count = 0;

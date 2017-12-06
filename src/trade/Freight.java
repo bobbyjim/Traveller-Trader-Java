@@ -4,6 +4,9 @@ import players.Playable;
 import ships.Interstellar;
 import worlds.World;
 
+/**
+ * Freight is flat-rate cargo, shipped between worlds.
+ */
 public class Freight implements Shippable
 {
     public int tons = 0;

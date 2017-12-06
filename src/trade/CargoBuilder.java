@@ -4,6 +4,7 @@ import worlds.World;
 
 /**
  * Created by eagro02 on 10/17/2017.
+ * Builds cargo based on the source world.
  */
 public class CargoBuilder
 {

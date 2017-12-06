@@ -4,9 +4,12 @@ import players.Playable;
 import ships.Interstellar;
 import worlds.World;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Cargo is defined as speculative freight. Its buy value depends on the world of origin,
+ * and its sale value depends on the origin and destination world.
+ */
 public class Cargo implements Shippable
 {
     public int tons = 0;

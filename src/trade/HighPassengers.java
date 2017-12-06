@@ -4,6 +4,11 @@ import players.Playable;
 import ships.Interstellar;
 import worlds.World;
 
+/**
+ * High Passage is luxury travel for the discriminating passenger.
+ * High Passengers prefer crew with Steward skills.
+ * The higher your ship's demand rating is, the more passengers will pay to travel with you.
+ */
 public class HighPassengers implements Shippable
 {
     public int count = 0;

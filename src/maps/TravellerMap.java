@@ -11,6 +11,11 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Travellermap.com is a service provided by Joshua Bell.  It is, essentially, a REST-based
+ * map engine with a rich set of operations.  This class talks to it to retrieve info
+ * about the world you're currently at, as well as a list of nearby worlds.
+ */
 public class TravellerMap implements MapAccessible
 {
     private JSONParser parser = new JSONParser();

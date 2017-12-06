@@ -1,10 +1,12 @@
 package players;
 
-import trade.*;
 import worlds.*;
 
 import java.io.Console;
 
+/**
+ * A player class exclusively for CLI use.
+ */
 public class CLI extends Player implements Playable
 {
    public void jump(World[] worlds)

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * A plain old Data Object.
+ * Not just a plain old Data Object.  Originally it was, but it will also compute the distance,
+ * in parsecs, from another world, create an array of trade codes from the Remarks list, and
+ * decode the population and TL digits for you.
  *
  * Created by eagro02 on 10/16/2017.
  */

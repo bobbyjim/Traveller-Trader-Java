@@ -2,6 +2,8 @@ package ships;
 
 /**
  * Created by eagro02 on 10/17/2017.
+ *
+ * Builds the standard types of starships available.
  */
 public class ShipFactory
 {
@@ -47,6 +49,10 @@ public class ShipFactory
     }
 
     /**
+     * Or, if you're a Traveller nerd, you can have a ship created to your specifications.
+     * Just pass in the Quick Ship Profile of the ship you want, and Jack's a donut,
+     * our pops your ship, fresh and ready to use.
+     *
      * An *ideal* QSP looks like this:
      *
      *              Marava A2-BS11 fuel hold vault h/m/l

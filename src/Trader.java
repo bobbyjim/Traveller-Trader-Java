@@ -23,11 +23,14 @@ public class Trader
             default: break;
         }
 
+        //
+        //  Launch public ("read-only") and private ("read-write") servers.
+        //
         new InternalDataServer( internalPort );
         new ExternalDataServer( externalPort );
 
         //
-        //  Launch client using playerName
+        //  Optional: Launch client using playerName
         //
         if ( cli )
             new TraderClient( playerName ).run();

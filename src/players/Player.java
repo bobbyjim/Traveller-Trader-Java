@@ -8,16 +8,28 @@ import worlds.*;
 
 import java.util.HashMap;
 
+/**
+ * The primary class to handle player interactions.  It's preferable to use one of its
+ * subclasses, which are tailored to handle specific environments -- CLI and WebClient.
+ *
+ * Since player information is stored locally, his ID is simply his name.  Routing messages
+ * could prove problematic, if I don't use the hostname as a qualifier.
+ *
+ * A player's current location is in "world".  His ship is in "ship".
+ */
 class Player implements Playable
 {
     String playerID = "Jameson";
 
     private HashMap<String,Integer> skills = new HashMap<>();
     public World world;
-    boolean unloaded = false; // this should be an Enum state: unloaded, loaded, in_transit or something
+    boolean unloaded = false; // TODO: this should be an Enum state: unloaded, loaded, in_transit or something
     public Interstellar ship = ShipFactory.createShip( "Far Trader" );
     public double mcr = 1.0;
 
+    /**
+     * Builds a player with reasonable defaults.
+     */
     Player()
     {
         world = WorldBuilder.BuildRegina();
@@ -40,6 +52,11 @@ class Player implements Playable
 
     public Interstellar getShip() { return ship; }
 
+    /**
+     * Load a ship with freight, passengers, and speculative cargo.
+     *
+     * @return a string with the stuff loaded onto your ship.
+     */
     public String loadShip()
     {
         String out = "";
@@ -64,6 +81,11 @@ class Player implements Playable
         return out;
     }
 
+    /**
+     * Unload passengers, freight, and speculative cargo.
+     *
+     * @return a string with the stuff unloaded from your ship.
+     */
     public String unloadShip()
     {
         String out = "";
@@ -99,6 +121,12 @@ class Player implements Playable
         return "\nWelcome to " + world.name + " (" + world.uwp + "/" + world.sectorAbbreviation + " " + world.hex + ")";
     }
 
+    /**
+     * print out a numbered list of worlds within range of your current location.
+     *
+     * @param worlds list of neighboring World objects.
+     * @return a string containing the destination list.
+     */
     public String printDestinations( World[] worlds )
     {
         String out = "\nDestinations in range:";

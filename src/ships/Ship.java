@@ -4,6 +4,10 @@ import trade.*;
 
 import java.io.Serializable;
 
+/**
+ * A player gets around the galaxy, and carries freight, passengers, and cargo, via a Ship.
+ * Ships do not have a "current location": that information is stored in the Player object.
+ */
 public class Ship implements Interstellar, Serializable
 {
     public String shipClass = "";

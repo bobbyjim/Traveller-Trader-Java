@@ -4,6 +4,10 @@ import players.Playable;
 import ships.Interstellar;
 import worlds.World;
 
+/**
+ * Passengers who aren't rich enough to afford High Passage.
+ * Admin skill attracts these sorts of passengers.
+ */
 public class MidPassengers implements Shippable
 {
     public int count = 0;

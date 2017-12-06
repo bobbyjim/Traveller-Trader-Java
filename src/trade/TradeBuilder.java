@@ -2,6 +2,13 @@ package trade;
 
 import worlds.World;
 
+/**
+ * A trade's value depends on a matrix of trade codes between the source world
+ * and the destination world.  A trade represents that by first noting the trade
+ * codes present in the market world, and comparing them with the presence of
+ * complementary trade codes in the cargo's source manifest.  The number of matches
+ * determines the sale price.
+ */
 public class TradeBuilder
 {
     private Trade trade;

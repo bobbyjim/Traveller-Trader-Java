@@ -2,6 +2,9 @@ package trade;
 
 import java.util.ArrayList;
 
+/**
+ * A Trade is created when you engage a destination world with a speculative cargo.
+ */
 public class Trade
 {
     ArrayList<TradeCode> tradeCodes = new ArrayList<>();

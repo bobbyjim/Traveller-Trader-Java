@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * Person-status retriever, 11/29/2017.
+ * Use this command to get information about your in-game character.
  */
 public class V0Person implements ApiCommand
 {

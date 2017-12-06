@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * Remote player retriever, 11/29/2017.
+ * Use this command to get the status of another player.
  */
 public class V0RemotePlayer implements ApiCommand
 {

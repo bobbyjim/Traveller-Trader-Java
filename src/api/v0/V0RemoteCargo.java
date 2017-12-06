@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * Remote cargo retriever, 11/29/2017.
+ * Use this command to figure out what cargo another player is selling.
  */
 public class V0RemoteCargo implements ApiCommand
 {

@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * "Jump" command 11/29/2017.
+ * This command jumps a ship from one star system to the other.
  */
 public class V0Jump extends V0Ship implements ApiCommand
 {
